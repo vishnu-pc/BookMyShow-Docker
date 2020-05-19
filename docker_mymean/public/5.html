@@ -1,0 +1,71 @@
+<html>
+<head>
+    <script src="angular/angular.min.js"> </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>BookMyShow</title>
+</head>
+<script> var myModule = angular.module("myApp",[])  </script>
+<body ng-app="myApp" class="t1">
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="main.html">Home</a>
+    </nav>
+    <form ng-controller='appController' ng-submit="send()"> <!--send() function from the controller is called on form submission -->
+
+        <div ng-init = "data.Eno = '5'"></div>
+        <div ng-init = "data.Ename = 'Wrong Number'"></div>
+        <div ng-init = "data.loc = 'Worldwide'"></div>
+        <div ng-init = "data.date = 'Suturday 30 May 2020'"></div>
+
+        <div class="card mb-3">
+        <img src="https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-wrong-number-2020-5-15-t-20-4-56.jpg" class="card-img-top" alt="..." >
+        <div class="card-body">
+          <h5 class="card-title">Wrong Number<div class="float-right">
+        <button ng-click="submit" class="btn btn-primary btn-lg">Book Now</button></div></h5>
+          <p class="card-text">Drama | Hindi | 8+ | 1hr 30mins</p>
+          <p class="card-text"><small class="text-muted">Comedy</small></p>
+          <pre><div class="alert alert-success" role="alert"> {{response.data}} </div></pre>
+          <div class="card-footer">
+            <h5 class="card-title">About</h5>
+            <p class="card-text">A non-adult comedy between three couples, A laugh riot and a roller coaster ride of confusions and suspicions around the characters of the play. Avinash is having an affair with Yashwant’s wife Kamini and is in constant conflict with his own wife, Ranjana. Ranjana feels Avinash is suspicious of his actions and phantom phone-calls made to the house and on his mobile. When Avinash returns late, she confronts him about his actions and he lies that he has been comforting work associate Natwarlal, who believes his wife Poonam is having an affair. Of course, Natwarlal and Poonam are innocent parties and neither of the adulterers realizes they have both implicated the Chaurasias in their alibis. The second part concerns the dinner parties at both the houses which, both are performed simultaneously. At the Singhs, the Chaurasias are treated to a polite and banal evening with Natwarlal desperately trying to impress Yashwant in the hope of a promotion, whereas Chaurasias attempt to impress in lieu of promotion but members of both parties suspect both Natwarlal or Poonam of sexual indiscretions. With matters totally confused, Yashwant summons everyone to his house to clear the air. It all ends but after great confusion</p>
+            <h5 class="card-title">Concept</h5>
+            <p class="card-text">At a time when many theatre fans around India aren’t able to visit Theatre Live at venues or local theatres, we’re excited to bring you Theatre at Home. </p>
+            <h5 class="card-title">Disclaimer</h5>
+            <p class="card-text">Artists at all times remain fully and solely liable and responsible for their actions, expressions and/or views. BookMyShow will not be responsible for their actions, expressions and/or views, and any claims, damages, outrage arising due to the comments, pictures or videos posted by the Artists on the Channels.</p>
+            </div>
+        </div>
+        </div>
+
+    </form>
+
+     <script>
+	 myModule.controller ("appController",
+        function appController($scope, $http) {
+            /*$http directive is used to communicate to the server */
+            $scope.data = {}
+            $scope.response = {}
+			
+            $scope.send = function () {
+                /*executed when submit is clicked*/          
+				console.log($scope.data.name);
+                var posting = $http({
+			/*posting to /process_get  */
+                    //method: 'GET',
+                    //url: '/process_get',
+                    //params: $scope.data,
+			/*posting to /process_post*/
+                    method: 'POST',
+                    url: '/process_post',
+                    data: $scope.data,
+                    
+                }).then (function (response) {
+                    /*executed when server responds back*/
+                    console.log(response);
+                    $scope.response.data = response.data;
+                },function (error){
+					console.log(error);
+			});
+            }
+        });
+    </script>
+</body>
+</html>

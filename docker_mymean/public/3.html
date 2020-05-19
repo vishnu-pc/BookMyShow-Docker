@@ -1,0 +1,75 @@
+<html>
+<head>
+    <script src="angular/angular.min.js"> </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>BookMyShow</title>
+</head>
+<script> var myModule = angular.module("myApp",[])  </script>
+<body ng-app="myApp" class="t1">
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="main.html">Home</a>
+    </nav>
+    <form ng-controller='appController' ng-submit="send()"> <!--send() function from the controller is called on form submission -->
+
+        <div ng-init = "data.Eno = '3'"></div>
+        <div ng-init = "data.Ename = 'Prasad Bhat Comedy Special'"></div>
+        <div ng-init = "data.loc = 'Bengaluru'"></div>
+        <div ng-init = "data.date = 'Tuesday 2 June 2020'"></div>
+
+        <div class="card mb-3">
+        <img src="https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-prasad-bhat-comedy-special-2020-3-12-t-13-35-7.jpg" class="card-img-top" alt="..." >
+        <div class="card-body">
+          <h5 class="card-title">Prasad Bhat Comedy Special<div class="float-right">
+        <button ng-click="submit" class="btn btn-primary btn-lg">Book Now</button></div></h5>
+          <p class="card-text">Comedy | English, Hindi | 16+ | 1hr 30mins</p>
+          <p class="card-text"><small class="text-muted">Comedy</small></p>
+          <pre><div class="alert alert-success" role="alert"> {{response.data}} </div></pre>
+          <div class="card-footer">
+            <h5 class="card-title">About</h5>
+            <p class="card-text">Rib-ticklers comedy presents ‘Bhat of All Jokes’ – A Standup Comedy Special by Prasad Bhat. Prasad is the latest internet comedy sensation, with his videos going viral on YouTube within days of its release and garnering 4 Mn+ views. He is also the man behind the viral artworks of Graphicurry.</p>
+            <p class="card-text">Come join him for a night of non-stop laughs and hilarity at one of the best venues for stand-up comedy in Bangalore. Get your tickets now as he’s been selling out shows across the city!</p>
+            <h5 class="card-title">Artist Bio</h5>
+            <p class="card-text">A caricature artist in India is mostly imagined to be the loser who never got a real job. Well, what if that was partly true? Except, it takes much more than a normal person to deal with the kind of erratic client requests a caricature artist gets!  Meet me for my standup comedy set and find out how despite a society-disapproved career, managed to get married and have a baby. Now what's the future of that child, is a questionable matter!</p>
+            <h5 class="card-title">Terms and Conditions</h5>
+            <p class="card-text">Age Limit: 16+<br>
+            Internet handling fee per ticket may be levied. Please check your total amount before payment.<br>
+            Tickets once booked cannot be canceled, exchanged or refunded.<br>
+            We recommend that you arrive at least 20 minutes prior at the venue to pick up your physical tickets.</p>
+            </div>
+        </div>
+        </div>
+
+    </form>
+
+     <script>
+	 myModule.controller ("appController",
+        function appController($scope, $http) {
+            /*$http directive is used to communicate to the server */
+            $scope.data = {}
+            $scope.response = {}
+			
+            $scope.send = function () {
+                /*executed when submit is clicked*/          
+				console.log($scope.data.name);
+                var posting = $http({
+			/*posting to /process_get  */
+                    //method: 'GET',
+                    //url: '/process_get',
+                    //params: $scope.data,
+			/*posting to /process_post*/
+                    method: 'POST',
+                    url: '/process_post',
+                    data: $scope.data,
+                    
+                }).then (function (response) {
+                    /*executed when server responds back*/
+                    console.log(response);
+                    $scope.response.data = response.data;
+                },function (error){
+					console.log(error);
+			});
+            }
+        });
+    </script>
+</body>
+</html>

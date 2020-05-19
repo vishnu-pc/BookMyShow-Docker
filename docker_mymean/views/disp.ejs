@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>BookByShow</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  </head>
+<body style="background-color:#181818;">
+  <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="main.html">Back to Home</a>
+  </nav>
+  <table class="table table-borderless table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Unique Event Number</th>
+        <th scope="col">Event Name</th>
+        <th scope="col">Location</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% for(var i=0; i<Event.length; i++) {%>
+      <tr>
+        <th scope="row"><%= Event[i].Eno %></th>
+        <td><%= Event[i].Ename %></td>
+        <td><%= Event[i].loc %></td>
+        <td><%= Event[i].date %></td>
+      </tr>
+    <% } %>
+    </tbody>
+  </table>
+</body>
+</html>

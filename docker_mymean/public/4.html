@@ -1,0 +1,71 @@
+<html>
+<head>
+    <script src="angular/angular.min.js"> </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>BookMyShow</title>
+</head>
+<script> var myModule = angular.module("myApp",[])  </script>
+<body ng-app="myApp" class="t1">
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="main.html">Home</a>
+    </nav>
+    <form ng-controller='appController' ng-submit="send()"> <!--send() function from the controller is called on form submission -->
+
+        <div ng-init = "data.Eno = '4'"></div>
+        <div ng-init = "data.Ename = 'Online Clue Hunt - Mission Timeline'"></div>
+        <div ng-init = "data.loc = 'Mumbai'"></div>
+        <div ng-init = "data.date = 'Monday 18 May 2020'"></div>
+
+        <div class="card mb-3">
+        <img src="https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-clue-hunt-2020-4-22-t-14-24-21.jpg" class="card-img-top" alt="..." >
+        <div class="card-body">
+          <h5 class="card-title">Online Clue Hunt - Mission Timeline<div class="float-right">
+        <button ng-click="submit" class="btn btn-primary btn-lg">Book Now</button></div></h5>
+          <p class="card-text">Gaming | English | 10+ | 1hr</p>
+          <p class="card-text"><small class="text-muted">Gaming</small></p>
+          <pre><div class="alert alert-success" role="alert"> {{response.data}} </div></pre>
+          <div class="card-footer">
+            <h5 class="card-title">About</h5>
+            <p class="card-text">This is a 30-minute online Clue Hunt game that you can participate in as an individual or a family or a team. You have to play from your home itself. First a WhatsApp message will be sent with rules & instructions, and thereafter a website link will be shared for the game.</p>
+            <h5 class="card-title">Game Storyline</h5>
+            <p class="card-text">India’s Defense Lab has worked round the clock to create a secret Time Machine and now wants to recruit special agents to go in the future to find the cure for the virus that has caused the deadly pandemic. Are you ready to embark upon this secret & mysterious mission?</p>
+            <h5 class="card-title">How?:</h5>
+            <p class="card-text">The team that arrives at the final answer (i.e. the cure) first shall be declared the winner!</p>
+            </div>
+        </div>
+        </div>
+
+    </form>
+
+     <script>
+	 myModule.controller ("appController",
+        function appController($scope, $http) {
+            /*$http directive is used to communicate to the server */
+            $scope.data = {}
+            $scope.response = {}
+			
+            $scope.send = function () {
+                /*executed when submit is clicked*/          
+				console.log($scope.data.name);
+                var posting = $http({
+			/*posting to /process_get  */
+                    //method: 'GET',
+                    //url: '/process_get',
+                    //params: $scope.data,
+			/*posting to /process_post*/
+                    method: 'POST',
+                    url: '/process_post',
+                    data: $scope.data,
+                    
+                }).then (function (response) {
+                    /*executed when server responds back*/
+                    console.log(response);
+                    $scope.response.data = response.data;
+                },function (error){
+					console.log(error);
+			});
+            }
+        });
+    </script>
+</body>
+</html>

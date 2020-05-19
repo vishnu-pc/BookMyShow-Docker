@@ -1,0 +1,71 @@
+<html>
+<head>
+    <script src="angular/angular.min.js"> </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>BookMyShow</title>
+</head>
+<script> var myModule = angular.module("myApp",[])  </script>
+<body ng-app="myApp" class="t1">
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="main.html">Home</a>
+    </nav>
+    <form ng-controller='appController' ng-submit="send()"> <!--send() function from the controller is called on form submission -->
+
+        <div ng-init = "data.Eno = '6'"></div>
+        <div ng-init = "data.Ename = 'VP Gaming PUBGM Tournament'"></div>
+        <div ng-init = "data.loc = 'India'"></div>
+        <div ng-init = "data.date = 'Suturday 24 May 2020'"></div>
+
+        <div class="card mb-3">
+        <img src="https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-vp-gaming-pubgm-tournament-2020-5-8-t-21-33-32.jpg" class="card-img-top" alt="..." >
+        <div class="card-body">
+          <h5 class="card-title">VP Gaming PUBGM Tournament<div class="float-right">
+        <button ng-click="submit" class="btn btn-primary btn-lg">Book Now</button></div></h5>
+          <p class="card-text">E Sports | English | 13+</p>
+          <p class="card-text"><small class="text-muted">Gaming</small></p>
+          <pre><div class="alert alert-success" role="alert"> {{response.data}} </div></pre>
+          <div class="card-footer">
+            <h5 class="card-title">About</h5>
+            <p class="card-text">Tencent Approved VP Gaming presents you free PubG Matches for a prize poll of Rs 100.</p>
+            <h5 class="card-title">Concept</h5>
+            <p class="card-text">Players purchasing ticket in Book My Show have to register themselves in the Fanspole portal. Room Id and password will be shared in the portal.</p>
+            <h5 class="card-title">Disclaimer</h5>
+            <p class="card-text">You will be given Room ID and Password via notification, sms(if contact no is updated), mail 15 minutes prior to the game.</p>
+            </div>
+        </div>
+        </div>
+
+    </form>
+
+     <script>
+	 myModule.controller ("appController",
+        function appController($scope, $http) {
+            /*$http directive is used to communicate to the server */
+            $scope.data = {}
+            $scope.response = {}
+			
+            $scope.send = function () {
+                /*executed when submit is clicked*/          
+				console.log($scope.data.name);
+                var posting = $http({
+			/*posting to /process_get  */
+                    //method: 'GET',
+                    //url: '/process_get',
+                    //params: $scope.data,
+			/*posting to /process_post*/
+                    method: 'POST',
+                    url: '/process_post',
+                    data: $scope.data,
+                    
+                }).then (function (response) {
+                    /*executed when server responds back*/
+                    console.log(response);
+                    $scope.response.data = response.data;
+                },function (error){
+					console.log(error);
+			});
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<html>
+<head>
+    <script src="angular/angular.min.js"> </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>BookMyShow</title>
+</head>
+<script> var myModule = angular.module("myApp",[])  </script>
+<body ng-app="myApp" class="t1">
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="main.html">Home</a>
+    </nav>
+    <form ng-controller='appController' ng-submit="send()"> <!--send() function from the controller is called on form submission -->
+
+        <div ng-init = "data.Eno = '8'"></div>
+        <div ng-init = "data.Ename = 'India Virtual Marathon - Bengaluru'"></div>
+        <div ng-init = "data.loc = 'Bengaluru'"></div>
+        <div ng-init = "data.date = 'Sunday 31 May 2020'"></div>
+
+        <div class="card mb-3">
+        <img src="https://in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-india-virtual-marathon-bengaluru-2020-2-27-t-16-58-54.jpg" class="card-img-top" alt="..." >
+        <div class="card-body">
+          <h5 class="card-title">India Virtual Marathon - Bengaluru<div class="float-right">
+        <button ng-click="submit" class="btn btn-primary btn-lg">Book Now</button></div></h5>
+          <p class="card-text">Marathon | Hindi, English | 5 to 85 Years | 4hrs</p>
+          <p class="card-text"><small class="text-muted">Running</small></p>
+          <pre><div class="alert alert-success" role="alert"> {{response.data}} </div></pre>
+          <div class="card-footer">
+            <h5 class="card-title">About</h5>
+            <p class="card-text">Event is to promote Fitness in India. This event is being Organised simultaneously in more than 100 Indian Cities.</p>
+            <h5 class="card-title">Concept</h5>
+            <p class="card-text">A virtual Marathon / Cyclothon is a challenge you give yourself to reach a designated goal of finishing a specified distance by running or walking or cycling at a time and location of your choice. ... The big difference is that you can run this race anywhere, with anyone, and any time of the day.</p>
+            <h5 class="card-title">The flow of the event</h5>
+            <p class="card-text">Complete the challenge of 21 km and get Trophy by courier and e-Certificate via email. You can do 1.5 km for 14 days or 3 km for 7 days or 7 km for 3 days or any random distance as per your convenience. Once you complete your 21K Challenge you have to share screenshot of timing app and Trophy is sent by courier. Trophy Size – 10 Inch (25 cm)</p>
+            </div>
+        </div>
+        </div>
+
+    </form>
+
+     <script>
+	 myModule.controller ("appController",
+        function appController($scope, $http) {
+            /*$http directive is used to communicate to the server */
+            $scope.data = {}
+            $scope.response = {}
+			
+            $scope.send = function () {
+                /*executed when submit is clicked*/          
+				console.log($scope.data.name);
+                var posting = $http({
+			/*posting to /process_get  */
+                    //method: 'GET',
+                    //url: '/process_get',
+                    //params: $scope.data,
+			/*posting to /process_post*/
+                    method: 'POST',
+                    url: '/process_post',
+                    data: $scope.data,
+                    
+                }).then (function (response) {
+                    /*executed when server responds back*/
+                    console.log(response);
+                    $scope.response.data = response.data;
+                },function (error){
+					console.log(error);
+			});
+            }
+        });
+    </script>
+</body>
+</html>
