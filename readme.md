@@ -2,6 +2,8 @@
 
 ## Documentation for Dockerization
 
+### See BookMyShow repository for documentation on how to run in Localhost 
+
 ### Extra commands
 
 * netstat -a | find "27017"
