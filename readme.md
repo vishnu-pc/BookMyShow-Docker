@@ -8,8 +8,8 @@
 
 * netstat -a | find "27017"
 * cd C:\docker_mymean
-* docker commit -m="This a mymean_cfimage" docker_mymean_web_1 vishnupc1999/mymean_cf_docker 
-* docker push vishnupc1999/mymean_cf_docker ("docker login" before this)
+* docker commit -m="This a mymean_cfimage" docker_mymean_web_1 <docker_username>/mymean_cf_docker 
+* docker push <docker_username>/mymean_cf_docker ("docker login" before this)
 * API endpoint: https://api.run.pivotal.io
 
 
